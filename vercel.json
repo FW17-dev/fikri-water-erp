@@ -1,0 +1,24 @@
+{
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.1"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/build/(.*)",
+      "destination": "/build/$1"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.php"
+    }
+  ],
+  "outputDirectory": "public",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build"
+}
