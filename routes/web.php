@@ -55,12 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/backups/{id}', [BackupController::class, 'destroy'])->name('backups.destroy');
     Route::post('/backups/{id}/restore', [BackupController::class, 'restore'])->name('backups.restore');
 
-
-});
-
-// Endpoint setup database untuk deploy Vercel (jalankan migrate + seed sekali saja)
-// Akses: https://domain-anda.vercel.app/setup-database?key=SETUP_SECRET_KEY
-Route::get('/setup-database', function (\Illuminate\Http\Request $request) {
+    // Endpoint setup database untuk deploy Vercel (jalankan migrate + seed sekali saja)
+    // Akses: https://domain-anda.vercel.app/setup-database?key=SETUP_SECRET_KEY
+    Route::get('/setup-database', function (\Illuminate\Http\Request $request) {
     if ($request->query('key') !== env('SETUP_SECRET_KEY')) {
         abort(403, 'Forbidden');
     }
@@ -76,4 +73,5 @@ Route::get('/setup-database', function (\Illuminate\Http\Request $request) {
         'migrate' => $migrateOutput,
         'seed' => $seedOutput,
     ]);
+});
 });
