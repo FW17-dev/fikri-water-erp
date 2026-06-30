@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-$_SERVER['SCRIPT_FILENAME'] = realpath(__DIR__ . '/../public/index.php');
-$_SERVER['SCRIPT_NAME'] = '/index.php';
-$_SERVER['PHP_SELF'] = '/index.php';
-$_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__ . '/../public');
+chdir(dirname(__DIR__));
 
-require $_SERVER['SCRIPT_FILENAME'];
+require __DIR__ . '/../public/index.php';
