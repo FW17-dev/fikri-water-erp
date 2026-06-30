@@ -19,18 +19,6 @@ $app = Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*'),
         );
     })->create();
-
-// Di Vercel (serverless) filesystem read-only, kecuali /tmp.
-// Arahkan storage Laravel (log, cache, view, session file) ke /tmp.
-if (getenv('VERCEL') || getenv('VERCEL_ENV')) {
-    $tmpStorage = '/tmp/storage';
-    foreach (['app', 'app/public', 'framework', 'framework/cache', 'framework/cache/data', 'framework/sessions', 'framework/testing', 'framework/views', 'logs'] as $dir) {
-        $path = $tmpStorage.'/'.$dir;
-        if (!is_dir($path)) {
-            @mkdir($path, 0777, true);
-        }
-    }
-    $app->useStoragePath($tmpStorage);
 }
 
 return $app;
