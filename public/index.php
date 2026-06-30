@@ -17,4 +17,17 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-$app->handleRequest(Request::capture());
+try {
+    $app->handleRequest(Request::capture());
+} catch (\Throwable $e) {
+    http_response_code(500);
+
+    header('Content-Type: text/plain');
+
+    echo "REAL ERROR\n\n";
+    echo $e->getMessage() . "\n\n";
+    echo $e->getFile() . ":" . $e->getLine() . "\n\n";
+    echo $e->getTraceAsString();
+
+    exit;
+}
