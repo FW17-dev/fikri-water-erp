@@ -1,24 +1,10 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+declare(strict_types=1);
 
-try {
-    $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/../public/index.php';
-    $_SERVER['SCRIPT_NAME'] = '/index.php';
+$_SERVER['SCRIPT_FILENAME'] = realpath(__DIR__ . '/../public/index.php');
+$_SERVER['SCRIPT_NAME'] = '/index.php';
+$_SERVER['PHP_SELF'] = '/index.php';
+$_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__ . '/../public');
 
-    require_once __DIR__ . '/../public/index.php';
-} catch (Throwable $e) {
-    http_response_code(500);
-
-    echo "<h2>VERCEL RUNTIME ERROR</h2>";
-    echo "<pre>";
-    echo $e->getMessage();
-    echo "\n\n";
-    echo $e->getFile();
-    echo " : ";
-    echo $e->getLine();
-    echo "\n\n";
-    echo $e->getTraceAsString();
-    echo "</pre>";
-}
+require $_SERVER['SCRIPT_FILENAME'];
